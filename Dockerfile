@@ -14,8 +14,8 @@ RUN \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # use our own xdebug configuration
-COPY 20-xdebug.ini /etc/php/7.0/apache2/conf.d/20-xdebug.ini
-RUN sed -i -e '1izend_extension=\'`find / -name "xdebug.so"` /etc/php/7.0/apache2/conf.d/20-xdebug.ini
+COPY 20-xdebug.ini /etc/php/7.0/mods-available/xdebug.ini
+RUN sed -i -e '1izend_extension=\'`find / -name "xdebug.so"` /etc/php/7.0/mods-available/xdebug.ini
 
 # add an user for later ssh connection (remote phpunit)
 # sshd configuration
@@ -34,3 +34,5 @@ RUN chmod +x /usr/local/bin/entrypoint.sh
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
+RUN sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php/7.0/fpm/php.ini
