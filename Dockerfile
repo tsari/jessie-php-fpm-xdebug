@@ -8,6 +8,7 @@ RUN \
     apt-get update -qq && \
     apt-get install --no-install-recommends -y \
         php7.0-xdebug \
+        php-sqlite3 \
         openssh-server \
         supervisor \
     && \
