@@ -11,5 +11,5 @@ RUN \
 
 # use our own xdebug configuration
 COPY 20-xdebug.ini /etc/php/7.1/mods-available/xdebug.ini
-RUN sed -i -e '1izend_extension=\'`find / -name "xdebug.so"` /etc/php/7.1/mods-available/xdebug.ini
+RUN sed -i -e '1izend_extension=\'`find / -name "xdebug.so" | sort -n -r | head -1` /etc/php/7.1/mods-available/xdebug.ini
 RUN sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php/7.1/fpm/php.ini
